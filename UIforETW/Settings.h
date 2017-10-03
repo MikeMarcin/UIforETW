@@ -18,6 +18,7 @@ limitations under the License.
 
 #include <string>
 #include "afxwin.h"
+#include "GpuMode.h"
 
 // CSettings dialog
 
@@ -50,6 +51,7 @@ public:
 	bool bVirtualAllocStacks_ = false;
 	bool bVersionChecks_ = false;
 	uint64_t chromeKeywords_ = 0;
+    GPUMode gpuMode_ = kGPUDefault;
 
 protected:
 	CEdit btHeapTracingExe_;
@@ -72,6 +74,7 @@ protected:
 	CButton btVirtualAllocStacks_;
 	CButton btVersionChecks_;
 	CCheckListBox btChromeCategories_;
+    CComboBox btGpuMode_;
 
 	CToolTipCtrl toolTip_;
 
@@ -99,4 +102,5 @@ public:
 	afx_msg void OnBnClickedRecordPreTrace();
 	afx_msg void OnBnClickedIdentifyChromeCpu();
 	afx_msg void OnBnClickedBackgroundMonitoring();
+    afx_msg void OnCbnSelchangeGpumode();
 };

@@ -89,6 +89,7 @@ void CUIforETWDlg::TransferSettings(bool saving)
 		// settings, to avoid privacy problems.
 		{ L"InputTracing", (int*)&InputTracing_, kKeyLoggerOff, kKeyLoggerAnonymized },
 		{ L"TracingMode", (int*)&tracingMode_, kTracingToMemory, kHeapTracingToFile },
+        { L"GpuMode", (int*)&gpuMode_, kGPUDefault, kGPUVerbose },
 	};
 
 	for (auto& m : ints)

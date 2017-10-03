@@ -259,6 +259,7 @@
   <ItemGroup>
     <ClInclude Include="About.h" />
     <ClInclude Include="CPUFrequency.h" />
+    <ClInclude Include="GpuMode.h" />
     <ClInclude Include="PowerStatus.h" />
     <ClInclude Include="ChildProcess.h" />
     <ClInclude Include="DirectoryMonitor.h" />
@@ -277,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPUFrequency.cpp" />
+    <ClCompile Include="GpuMode.cpp" />
     <ClCompile Include="PowerStatus.cpp" />
     <ClCompile Include="ChildProcess.cpp" />
     <ClCompile Include="DirectoryMonitor.cpp" />

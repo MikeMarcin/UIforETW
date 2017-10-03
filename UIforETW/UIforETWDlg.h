@@ -25,6 +25,7 @@ limitations under the License.
 #include "PowerStatus.h"
 #include "CPUFrequency.h"
 #include "VersionChecker.h"
+#include "GpuMode.h"
 
 enum TracingMode
 {
@@ -102,6 +103,8 @@ private:
 	CStatic btInputTracingLabel_;
 
 	TracingMode tracingMode_ = kTracingToMemory;
+    GPUMode gpuMode_ = kGPUDefault;
+
 	// Increase the buffer count by some proportion when tracing to a file
 	// on a large-memory machine.
 	int BufferCountBoost(int requestCount) const;
@@ -246,7 +249,7 @@ private:
 	void SaveNotesIfNeeded();
 	void ShutdownTasks();
 	bool bShutdownCompleted_ = false;
-
+    
 	// Generated message map functions
 	virtual BOOL OnInitDialog() override;
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
@@ -254,7 +257,7 @@ private:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedStarttracing();
-	afx_msg void OnBnClickedStoptracing();
+    afx_msg void OnBnClickedStoptracing();
 	afx_msg void OnBnClickedCompresstrace();
 	afx_msg void OnBnClickedCpusamplingcallstacks();
 	afx_msg void OnBnClickedContextswitchcallstacks();

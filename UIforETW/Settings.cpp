@@ -102,6 +102,7 @@ void CSettings::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_VIRTUALALLOCSTACKS, btVirtualAllocStacks_);
 	DDX_Control(pDX, IDC_CHECKFORNEWVERSIONS, btVersionChecks_);
 	DDX_Control(pDX, IDC_CHROME_CATEGORIES, btChromeCategories_);
+    DDX_Control(pDX, IDC_GPUMODE, btGpuMode_);
 	DDX_Control(pDX, IDC_IDENTIFY_CHROME_CPU, btIdentifyChromeProcessesCPU_);
 	DDX_Control(pDX, IDC_BACKGROUND_MONITORING, btBackgroundMonitoring_);
 
@@ -122,6 +123,7 @@ BEGIN_MESSAGE_MAP(CSettings, CDialog)
 	ON_BN_CLICKED(IDC_RECORD_PRE_TRACE, &CSettings::OnBnClickedRecordPreTrace)
 	ON_BN_CLICKED(IDC_IDENTIFY_CHROME_CPU, &CSettings::OnBnClickedIdentifyChromeCpu)
 	ON_BN_CLICKED(IDC_BACKGROUND_MONITORING, &CSettings::OnBnClickedBackgroundMonitoring)
+    ON_CBN_SELCHANGE( IDC_GPUMODE, &CSettings::OnCbnSelchangeGpumode )
 END_MESSAGE_MAP()
 
 BOOL CSettings::OnInitDialog()
@@ -239,6 +241,15 @@ BOOL CSettings::OnInitDialog()
 	++index;
 	btChromeCategories_.AddString(disabled_other_events_group_name);
 	btChromeCategories_.SetCheck(index, (chromeKeywords_ & disabled_other_events_keyword_bit) != 0);
+
+    btGpuMode_.AddString( L"Default " );
+    btGpuMode_.AddString( L"Normal" );
+    btGpuMode_.AddString( L"Light" );
+    btGpuMode_.AddString( L"Longhaul" );
+    btGpuMode_.AddString( L"Present" );
+    btGpuMode_.AddString( L"Min" );
+    btGpuMode_.AddString( L"Verbose" );
+    btGpuMode_.SetCurSel( gpuMode_ );
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -416,4 +427,9 @@ void CSettings::OnBnClickedRecordPreTrace()
 void CSettings::OnBnClickedBackgroundMonitoring()
 {
 	bBackgroundTracing_ = !bBackgroundTracing_;
+}
+
+void CSettings::OnCbnSelchangeGpumode()
+{
+    gpuMode_ = (GPUMode)btGpuMode_.GetCurSel();
 }

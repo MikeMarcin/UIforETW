@@ -78,6 +78,8 @@
 #define IDC_RECORD_PRE_TRACE2           1040
 #define IDC_IDENTIFY_CHROME_CPU         1040
 #define IDC_BACKGROUND_MONITORING       1041
+#define IDC_GPUMODE                     1042
+#define IDC_GPUMODE_LABEL               1043
 #define ID_TRACES_OPENTRACEINWPA        32771
 #define ID_TRACES_DELETETRACE           32772
 #define ID_TRACES_COMPRESSTRACE         32773
@@ -116,7 +118,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        138
 #define _APS_NEXT_COMMAND_VALUE         32815
-#define _APS_NEXT_CONTROL_VALUE         1039
+#define _APS_NEXT_CONTROL_VALUE         1044
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -66,6 +66,9 @@
     <ClInclude Include="TraceLoggingSupport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GpuMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UIforETW.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TraceLoggingSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1051,24 +1051,8 @@ void CUIforETWDlg::OnBnClickedStarttracing()
 
 	if (bGPUTracing_)
 	{
-		// Apparently we need a different provider for graphics profiling
-		// on Windows 8 and above.
-		if (IsWindows8OrGreater())
-		{
-			// This provider is needed for GPU profiling on Windows 8+
-			userProviders += L"+Microsoft-Windows-DxgKrnl:0xFFFF:5";
-			if (!IsWindowsServer())
-			{
-				// Present events on Windows 8 + -- non-server SKUs only.
-				userProviders += L"+Microsoft-Windows-MediaEngine";
-			}
-		}
-		else
-		{
-			// Necessary providers for a minimal GPU profiling setup.
-			// DirectX logger:
-			userProviders += L"+DX:0x2F";
-		}
+        auto gpuProviders = GetGpuProviders( gpuMode_ );
+        userProviders += gpuProviders.csProviders;
 	}
 
 	if (bCLRTracing_)
@@ -1085,7 +1069,8 @@ void CUIforETWDlg::OnBnClickedStarttracing()
 
 	// Increase the user buffer sizes when doing graphics tracing or Chrome tracing.
 	const int numUserBuffers = BufferCountBoost(bGPUTracing_ ? 200 : 100) + BufferCountBoost(useChromeProviders_ ? 100 : 0);
-	std::wstring userBuffers = stringPrintf(L" -buffersize 1024 -minbuffers %d -maxbuffers %d", numUserBuffers, numUserBuffers);
+    const int maxBufferBoost = bGPUTracing_ && (gpuMode_ != kGPUDefault) ? 200 : 0;
+	std::wstring userBuffers = stringPrintf(L" -buffersize 1024 -minbuffers %d -maxbuffers %d", numUserBuffers, numUserBuffers + maxBufferBoost);
 	std::wstring userFile = L" -f \"" + GetUserFile() + L"\"";
 	if (tracingMode_ == kTracingToMemory)
 		userFile = L" -buffering";
@@ -1864,6 +1849,7 @@ void CUIforETWDlg::OnBnClickedSettings()
 	dlgSettings.bVirtualAllocStacks_ = bVirtualAllocStacks_;
 	dlgSettings.bVersionChecks_ = bVersionChecks_;
 	dlgSettings.chromeKeywords_ = chromeKeywords_;
+    dlgSettings.gpuMode_ = gpuMode_;
 	if (dlgSettings.DoModal() == IDOK)
 	{
 		// If the heap tracing executable name has changed then clear and
@@ -1905,6 +1891,7 @@ void CUIforETWDlg::OnBnClickedSettings()
 		bVirtualAllocStacks_ = dlgSettings.bVirtualAllocStacks_;
 		bVersionChecks_ = dlgSettings.bVersionChecks_;
 		chromeKeywords_ = dlgSettings.chromeKeywords_;
+        gpuMode_ = dlgSettings.gpuMode_;
 	}
 }
 
